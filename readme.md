@@ -30,7 +30,7 @@
 
 Dither Girl is a desktop image dithering tool. You feed it a photo, pick one of 18 algorithms, tweak a handful of sliders, and it comes out the other side looking like it was printed in 1994 on a machine that was very tired. There is no cloud, no account, no subscription trying to upsell you on "Pro Dithering Tier." Every pixel gets processed on your machine, the math runs in NumPy, and the whole thing looks extremely good doing it.
 
-The interface is dark, minimal, and accented in the kind of gold that makes you feel like the app respects your time. The mascot is a little robot with a screen for a torso. Her name is Dither Girl. She has seen things.
+The interface is dark, minimal, and accented in the kind of gold that makes you feel like the app respects your time. The mascot is a manga girl. She does not care about your color depth.
 
 <br/>
 
@@ -258,6 +258,3 @@ made with love (and a lot of NumPy) by **Strykey**
 
 
 </div>
-
-
-
