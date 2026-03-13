@@ -3,7 +3,7 @@
 
 <br/>
 
-src="<img width="459" height="501" alt="logo" src="https://github.com/user-attachments/assets/4af26dae-2bdc-4d40-b603-9d100d5c07b4" />
+<img width="459" height="501" alt="logo" src="https://github.com/user-attachments/assets/4af26dae-2bdc-4d40-b603-9d100d5c07b4" />
 
 <br/>
 
@@ -254,4 +254,5 @@ made with love (and a lot of NumPy) by **Strykey**
 
 
 </div>
+
 
