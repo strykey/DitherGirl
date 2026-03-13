@@ -1,0 +1,1 @@
+{"name": "Game Boy Classic", "settings": {"algorithm": "floyd-steinberg", "palette_id": "gameboy", "depth": 4, "threshold": 128, "brightness": 0, "contrast": 20, "scale": 1, "serpentine": true, "invert": false, "effects": []}}

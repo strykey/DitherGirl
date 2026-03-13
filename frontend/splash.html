@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dither Girl</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%; height: 100%;
+      background: var(--bg-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      overflow: hidden;
+      user-select: none;
+    }
+    .splash {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      opacity: 0;
+      animation: appear 0.6s ease 0.2s forwards;
+    }
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .mascot {
+      width: 140px;
+      margin-bottom: 24px;
+    }
+    .title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .byline {
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      opacity: 0.75;
+      margin-bottom: 32px;
+    }
+    .subtitle {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .progress-track {
+      width: 200px;
+      height: 2px;
+      background: var(--bg-elevated);
+      border-radius: 1px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 1px;
+      transition: width 0.3s ease;
+    }
+    .status-msg {
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      height: 16px;
+      transition: opacity 0.2s;
+    }
+    .grain-overlay {
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+    }
+  </style>
+</head>
+<body>
+<div class="grain-overlay"></div>
+<div class="splash">
+  <img class="mascot" src="logo.png" alt="Dither Girl">
+  <div class="title">DITHER GIRL</div>
+  <div class="subtitle">Image Dithering Tool</div>
+  <div class="byline">by Strikey</div>
+  <div class="progress-track">
+    <div class="progress-bar" id="progress-bar"></div>
+  </div>
+  <div class="status-msg" id="status-msg">Initializing...</div>
+</div>
+
+<script>
+  const steps = [
+    { pct: 15, msg: 'Loading algorithms...' },
+    { pct: 35, msg: 'Importing color engine...' },
+    { pct: 55, msg: 'Building effect pipeline...' },
+    { pct: 75, msg: 'Loading palettes...' },
+    { pct: 90, msg: 'Preparing interface...' },
+    { pct: 100, msg: 'Ready.' },
+  ];
+
+  const bar = document.getElementById('progress-bar');
+  const msg = document.getElementById('status-msg');
+  let step = 0;
+
+  function tick() {
+    if (step >= steps.length) return;
+    const s = steps[step++];
+    bar.style.width = s.pct + '%';
+    msg.textContent = s.msg;
+    if (step < steps.length) setTimeout(tick, 280 + Math.random() * 200);
+    else setTimeout(() => { window.location.href = 'index.html'; }, 600);
+  }
+
+  setTimeout(tick, 400);
+</script>
+</body>
+</html>

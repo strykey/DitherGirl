@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dither Girl</title>
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+
+<div id="app">
+
+  <header id="header">
+    <div class="header-left">
+      <span class="app-logo">DITHER GIRL</span>
+      <span class="app-version">v1.0.0</span>
+    </div>
+    <div class="header-center">
+      <button class="preview-mode-btn" data-mode="before">Before</button>
+      <button class="preview-mode-btn active" data-mode="after">After</button>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-ghost" id="btn-open-image">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path d="M1 9V3a1 1 0 011-1h3l1.5 1.5H10a1 1 0 011 1V9a1 1 0 01-1 1H2a1 1 0 01-1-1z" stroke="currentColor" stroke-width="1" fill="none"/>
+        </svg>
+        Open Image
+      </button>
+    </div>
+  </header>
+
+  <aside id="panel-left">
+
+    <div class="panel-section">
+      <div class="section-label">Source</div>
+      <div class="drop-zone" id="drop-zone">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="opacity:0.35">
+          <rect x="3" y="5" width="22" height="18" rx="2" stroke="#c8a96e" stroke-width="1.5" fill="none"/>
+          <circle cx="9.5" cy="11.5" r="2" stroke="#c8a96e" stroke-width="1.2" fill="none"/>
+          <path d="M3 19l6-5 5 4 4-3 7 5" stroke="#c8a96e" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <div class="drop-zone-text">
+          <strong>Drop image here</strong>
+          or click to browse
+        </div>
+      </div>
+
+      <div class="image-thumb-wrap" id="image-thumb-wrap">
+        <img class="image-thumb" id="image-thumb" src="" alt="">
+        <div class="image-thumb-info">
+          <span id="image-filename">—</span>
+          <span id="image-dimensions">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="panel-section">
+      <div class="section-label">Palette</div>
+      <div class="panel-row" style="padding-bottom:4px">
+        <div class="select-wrap" style="flex:1">
+          <select id="palette-select"></select>
+        </div>
+      </div>
+      <div class="palette-swatches" id="palette-swatches"></div>
+      <div class="panel-action-row">
+        <button class="btn btn-ghost" id="btn-import-palette" style="flex:1">Import .json</button>
+        <button class="btn btn-ghost" id="btn-extract-palette" style="flex:1">Extract</button>
+      </div>
+      <div class="panel-row">
+        <span class="panel-row-label">Colors</span>
+        <div class="panel-row-control">
+          <input type="range" id="extract-n-colors" min="2" max="32" value="8">
+          <span class="slider-value" id="extract-n-val">8</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="panel-section" style="flex:1">
+      <div class="section-label">Presets</div>
+      <div class="preset-list" id="preset-list"></div>
+      <div class="panel-action-row">
+        <button class="btn btn-ghost" id="btn-save-preset" style="flex:1" disabled>Save Current</button>
+      </div>
+    </div>
+
+  </aside>
+
+  <main id="canvas-area">
+    <div class="canvas-empty" id="canvas-empty">
+      <div class="canvas-empty-text">No image loaded</div>
+    </div>
+
+    <div id="canvas-container" style="display:none; width:100%; height:100%; position:relative; overflow:hidden;">
+      <div id="canvas-viewport" style="
+        position:absolute; top:50%; left:50%;
+        transform: translate(-50%,-50%);
+        transform-origin: center center;
+        line-height:0;
+      ">
+        <img id="img-main" src="" alt=""
+          style="display:block; max-width:80vw; max-height:80vh; image-rendering:pixelated; pointer-events:none; user-select:none; box-shadow:0 8px 40px rgba(0,0,0,0.7);">
+      </div>
+    </div>
+
+    <div class="zoom-controls" id="zoom-controls" style="display:none">
+      <button class="zoom-btn" id="zoom-out">−</button>
+      <span class="zoom-level" id="zoom-label">100%</span>
+      <button class="zoom-btn" id="zoom-in">+</button>
+      <button class="zoom-btn" id="zoom-fit" title="Fit" style="font-size:9px;letter-spacing:0">FIT</button>
+    </div>
+  </main>
+
+  <aside id="panel-right">
+
+    <div class="panel-section">
+      <div class="section-label">Algorithm</div>
+      <div class="panel-row">
+        <div class="select-wrap" style="flex:1">
+          <select id="algorithm-select"></select>
+        </div>
+      </div>
+      <div class="algo-description" id="algo-description">Classic error diffusion — balanced, widely used</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="panel-section">
+      <div class="section-label">Adjustments</div>
+
+      <div class="panel-row">
+        <span class="panel-row-label">Depth</span>
+        <div class="panel-row-control">
+          <input type="range" id="slider-depth" min="1" max="32" value="8">
+          <span class="slider-value" id="val-depth">8</span>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <span class="panel-row-label">Threshold</span>
+        <div class="panel-row-control">
+          <input type="range" id="slider-threshold" min="0" max="255" value="128">
+          <span class="slider-value" id="val-threshold">128</span>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <span class="panel-row-label">Brightness</span>
+        <div class="panel-row-control">
+          <input type="range" id="slider-brightness" min="-100" max="100" value="0">
+          <span class="slider-value" id="val-brightness">0</span>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <span class="panel-row-label">Contrast</span>
+        <div class="panel-row-control">
+          <input type="range" id="slider-contrast" min="-100" max="100" value="0">
+          <span class="slider-value" id="val-contrast">0</span>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <span class="panel-row-label">Scale</span>
+        <div class="panel-row-control">
+          <!-- allow fractional values from 0.25 (finer detail) up to 8 (large pixels) -->
+          <input type="range" id="slider-scale" min="0.25" max="8" step="0.25" value="1">
+          <span class="slider-value" id="val-scale">×1</span>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <span class="panel-row-label">Serpentine</span>
+        <div class="panel-row-control">
+          <label class="toggle">
+            <input type="checkbox" id="toggle-serpentine">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="panel-row">
+        <span class="panel-row-label">Invert</span>
+        <div class="panel-row-control">
+          <label class="toggle">
+            <input type="checkbox" id="toggle-invert">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="panel-section">
+      <div class="section-label">Effects Pipeline</div>
+      <div id="effects-list"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="panel-section" style="flex:1; display:flex; flex-direction:column; justify-content:flex-end;">
+      <div class="section-label">Export</div>
+      <div style="padding: 4px 14px 8px; display:flex; flex-direction:column; gap:8px;">
+
+        <div class="panel-row" style="padding:0">
+          <span class="panel-row-label">Format</span>
+          <div class="panel-row-control">
+            <div class="select-wrap" style="flex:1">
+              <select id="export-format">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="bmp">BMP</option>
+                <option value="webp">WebP</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-row" style="padding:0" id="quality-row">
+          <span class="panel-row-label">Quality</span>
+          <div class="panel-row-control">
+            <input type="range" id="export-quality" min="1" max="100" value="90">
+            <span class="slider-value" id="val-quality">90</span>
+          </div>
+        </div>
+
+        <div class="panel-row" style="padding:0">
+          <span class="panel-row-label">Scale ×</span>
+          <div class="panel-row-control">
+            <div class="select-wrap" style="flex:1">
+              <select id="export-scale">
+                <option value="1">×1 — Original</option>
+                <option value="2">×2 — Double</option>
+                <option value="4">×4 — Quad</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="export-btn-wrap">
+        <button class="btn btn-accent" id="btn-export" style="width:100%; height:36px;" disabled>
+          Export Image
+        </button>
+      </div>
+    </div>
+
+  </aside>
+
+  <footer id="statusbar">
+    <div class="status-item">
+      <div class="status-dot ready" id="status-dot"></div>
+      <span id="status-text">Ready</span>
+    </div>
+    <div class="status-item" id="status-dims" style="display:none">
+      <span id="status-size">—</span>
+    </div>
+    <div class="status-item" id="status-algo-wrap" style="display:none">
+      <span class="tag tag-accent" id="status-algo">—</span>
+    </div>
+  </footer>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="js/api.js"></script>
+<script src="js/canvas.js"></script>
+<script src="js/pipeline.js"></script>
+<script src="js/panels.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

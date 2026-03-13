@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne+Mono&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap');
+
+:root {
+  --bg-deep:        #0a0a0a;
+  --bg-panel:       #111111;
+  --bg-surface:     #1c1c1c;
+  --bg-elevated:    #242424;
+  --border:         #2e2e2e;
+  --border-subtle:  #1e1e1e;
+  --text-primary:   #e8e8e8;
+  --text-secondary: #888888;
+  --text-muted:     #444444;
+  --accent:         #c8a96e;
+  --accent-dim:     #8a6e3e;
+  --accent-glow:    rgba(200, 169, 110, 0.12);
+  --danger:         #c0392b;
+  --success:        #27ae60;
+
+  --font-display:   'Syne Mono', monospace;
+  --font-body:      'DM Sans', sans-serif;
+  --font-mono:      'JetBrains Mono', monospace;
+
+  --radius-sm:      3px;
+  --radius-md:      6px;
+  --radius-lg:      10px;
+
+  --panel-left:     272px;
+  --panel-right:    296px;
+  --header-h:       42px;
+  --statusbar-h:    28px;
+
+  --transition:     150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
