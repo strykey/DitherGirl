@@ -3,7 +3,8 @@
 
 <br/>
 
-<img src="logo.png" width="110" alt="Dither Girl mascot"/>
+<img src="<img width="459" height="501" alt="logo" src="https://github.com/user-attachments/assets/4af26dae-2bdc-4d40-b603-9d100d5c07b4" />
+" width="110" alt="Dither Girl mascot"/>
 
 <br/>
 
@@ -251,5 +252,6 @@ made with love (and a lot of NumPy) by **Strykey**
 <br/>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:c8a96e,40:1a1208,100:0a0a0a&height=120&section=footer" width="100%"/>
+
 
 </div>
