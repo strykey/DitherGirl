@@ -251,8 +251,13 @@ made with love (and a lot of NumPy) by **Strykey**
 <br/>
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0:c8a96e,40:1a1208,100:0a0a0a&height=120&section=footer" width="100%"/>
+<img width="2080" height="3000" alt="dithered" src="https://github.com/user-attachments/assets/0399a8cb-439f-4e3e-b5eb-7653c3a25154" />
+<img width="2080" height="3000" alt="dithered" src="https://github.com/user-attachments/assets/83ac0a49-33fd-45c5-99e2-776e01e0a845" />
+
+
 
 
 </div>
+
 
 
